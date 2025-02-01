@@ -104,6 +104,19 @@ public:
 
     void addBook(int id, const string &title, int year, int quantity)
     {
+        Book *current = head;
+
+        while (current != nullptr)
+        {
+            if (current->bookID == id && current->title == title)
+            {
+                current->quantity += quantity;
+                cout << "Updated quantity for existing book: " << title << " (ID: " << id << "), New Quantity: " << current->quantity << endl;
+                return;
+            }
+            current = current->next;
+        }
+
         Book *newBook = new Book(id, title, year, quantity);
         newBook->next = head;
         head = newBook;
@@ -111,6 +124,7 @@ public:
 
         cout << "Book added successfully: " << title << endl;
     }
+
 
     // Linked List Deletion
     void removeBook(int bookID)
